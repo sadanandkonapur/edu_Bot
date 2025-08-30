@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edu Academy Chatbot</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="/static/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-graduation-cap me-2"></i>
+                    Edu Academy Chatbot
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#chat-section">Chat</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#study-plan-section">Study Plans</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#subjects-section">Subjects</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="hero-section bg-gradient text-white py-5">
+            <div class="container text-center">
+                <h1 class="display-4 mb-3">Welcome to Edu Academy</h1>
+                <p class="lead mb-4">Your AI-powered educational assistant for learning and academic success</p>
+                <button class="btn btn-light btn-lg" onclick="scrollToChat()">
+                    <i class="fas fa-comments me-2"></i>Start Learning
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="container my-5">
+            <div class="row">
+                <!-- Chat Section -->
+                <div class="col-lg-8" id="chat-section">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h4 class="mb-0">
+                                <i class="fas fa-robot me-2"></i>AI Tutor Chat
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="chat-messages" class="chat-messages mb-3">
+                                <div class="message bot-message">
+                                    <div class="message-content">
+                                        <i class="fas fa-robot me-2"></i>
+                                        Hello! I'm your AI tutor from Edu Academy. How can I help you learn today?
+                                    </div>
+                                    <small class="text-muted">Just now</small>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <input type="text" id="user-input" class="form-control" placeholder="Ask me anything about your studies..." onkeypress="handleKeyPress(event)">
+                                <button class="btn btn-primary" onclick="sendMessage()">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Quick Actions -->
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header">
+                            <h5 class="mb-0">Quick Actions</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-primary" onclick="askQuestion('Explain photosynthesis')">
+                                    <i class="fas fa-leaf me-2"></i>Science Help
+                                </button>
+                                <button class="btn btn-outline-success" onclick="askQuestion('Help me solve quadratic equations')">
+                                    <i class="fas fa-calculator me-2"></i>Math Problem
+                                </button>
+                                <button class="btn btn-outline-info" onclick="askQuestion('Give me study tips for exams')">
+                                    <i class="fas fa-book me-2"></i>Study Tips
+                                </button>
+                                <button class="btn btn-outline-warning" onclick="askQuestion('Help me write an essay')">
+                                    <i class="fas fa-pen me-2"></i>Writing Help
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subject Selection -->
+                    <div class="card shadow-sm" id="subjects-section">
+                        <div class="card-header">
+                            <h5 class="mb-0">Ask by Subject</h5>
+                        </div>
+                        <div class="card-body">
+                            <form id="question-form">
+                                <div class="mb-3">
+                                    <label for="subject-select" class="form-label">Subject</label>
+                                    <select class="form-select" id="subject-select" name="subject">
+                                        <option value="General">General</option>
+                                        <option value="Mathematics">Mathematics</option>
+                                        <option value="Science">Science</option>
+                                        <option value="Literature">Literature</option>
+                                        <option value="History">History</option>
+                                        <option value="Physics">Physics</option>
+                                        <option value="Chemistry">Chemistry</option>
+                                        <option value="Biology">Biology</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="question-input" class="form-label">Your Question</label>
+                                    <textarea class="form-control" id="question-input" name="question" rows="3" placeholder="What would you like to learn?"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search me-2"></i>Ask Question
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Study Plan Section -->
+            <div class="row mt-5" id="study-plan-section">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h4 class="mb-0">
+                                <i class="fas fa-calendar-alt me-2"></i>Create Study Plan
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="study-plan-form">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="study-subject" class="form-label">Subject</label>
+                                            <select class="form-select" id="study-subject" name="subject" required>
+                                                <option value="">Choose subject...</option>
+                                                <option value="Mathematics">Mathematics</option>
+                                                <option value="Science">Science</option>
+                                                <option value="Literature">Literature</option>
+                                                <option value="History">History</option>
+                                                <option value="Physics">Physics</option>
+                                                <option value="Chemistry">Chemistry</option>
+                                                <option value="Biology">Biology</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="study-level" class="form-label">Level</label>
+                                            <select class="form-select" id="study-level" name="level" required>
+                                                <option value="">Choose level...</option>
+                                                <option value="Beginner">Beginner</option>
+                                                <option value="Intermediate">Intermediate</option>
+                                                <option value="Advanced">Advanced</option>
+                                                <option value="High School">High School</option>
+                                                <option value="College">College</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label for="study-duration" class="form-label">Duration</label>
+                                            <select class="form-select" id="study-duration" name="duration">
+                                                <option value="1 week">1 Week</option>
+                                                <option value="2 weeks">2 Weeks</option>
+                                                <option value="1 month">1 Month</option>
+                                                <option value="3 months">3 Months</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-magic me-2"></i>Generate Study Plan
+                                </button>
+                            </form>
+                            <div id="study-plan-result" class="mt-4" style="display: none;">
+                                <h5>Your Personalized Study Plan</h5>
+                                <div id="study-plan-content" class="border rounded p-3 bg-light"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white py-4 mt-5">
+            <div class="container text-center">
+                <p>&copy; 2025 Edu Academy. Empowering education through AI.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>
