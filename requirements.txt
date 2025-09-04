@@ -8,3 +8,4 @@ aiofiles
 pydantic
 httpx
 requests
+gunicorn
